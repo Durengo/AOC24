@@ -7,6 +7,7 @@ pub fn main() !void {
     const x: i32 = 1;
     const pointer: *const i32 = &x;
     print("1 = {}, {}\n", .{ x, pointer.* });
+    print("1 = {}", .{pointer.*});
 }
 
 test "simple test" {
@@ -25,14 +26,10 @@ test "learn" {
         [_]f32{ 0.0, 0.0, 0.0, 1.0 },
     };
 
-    var i: usize = 0;
-    for (mat4x4) |row| {
-        var j: usize = 0;
-        for (row) |cell| {
+    for (mat4x4, 0..) |row, i| {
+        for (row, 0..) |cell, j| {
             std.debug.print("mat4x4[{d}][{d}] = {d:.1}\n", .{ i, j, cell });
-            j += 1;
         }
-        i += 1;
     }
 
     try std.testing.expect(mat4x4[1][1] == 1.0);
